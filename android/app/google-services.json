@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46840098089",
+    "project_id": "bookurtreat-demo",
+    "storage_bucket": "bookurtreat-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46840098089:android:e5ce450b2b3039b84adb38",
+        "android_client_info": {
+          "package_name": "com.bookurtreat.bookurtreat_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46840098089-ku1kqpbgtcqhpa1nb43djrb8tke491pj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc9BNOhleglfbr-JL85kEPVBeXad51OAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46840098089-ku1kqpbgtcqhpa1nb43djrb8tke491pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
