@@ -38,8 +38,8 @@ jobs:
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_APP_TOKEN}}
-          groups: android
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: android_testers
           file: "build/app/outputs/flutter-apk/app-release.apk"
 
 
