@@ -47,5 +47,6 @@ jobs:
           tag: ios.v1.0.${{github.run_number}}
           allowUpdates: true
           token: ${{secrets.TOKEN}}
-
+          generateReleaseNotes: true
+          makeLatest: true
 
