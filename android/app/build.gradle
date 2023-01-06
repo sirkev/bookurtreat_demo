@@ -58,29 +58,22 @@ android {
 
     buildTypes {
         release {
-            firebaseAppDistribution {
-                serviceCredentialsFile = "/home/kev/Documents/bookurtreat/bookurtreat-demo-373810-6ef5770d24e7.json"
-                testers = "kevinoduor8877@gmail.com"
-                // TODO: Add your own signing config for the release build.
-                // Signing with the debug keys for now, so `flutter run --release` works.
-                signingConfig signingConfigs.debug
-            }
-
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
         }
     }
+}
 
-    flutter {
-        source '../..'
-    }
+flutter {
+    source '../..'
+}
 
-    dependencies {
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-        implementation platform('com.google.firebase:firebase-bom:31.1.1')
-        implementation 'com.google.firebase:firebase-analytics-ktx'
-        implementation platform('com.google.firebase:firebase-bom:31.1.1')
-        implementation 'com.google.firebase:firebase-perf-ktx'
-
-
-    }
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation 'com.google.firebase:firebase-perf-ktx'
 
 }
