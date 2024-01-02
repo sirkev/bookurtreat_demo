@@ -46,7 +46,7 @@ jobs:
           artifacts: "build/ios/iphoneos/app.ipa*"
           tag: ios.v1.0.${{github.run_number}}
           allowUpdates: true
-          token: ${{secrets.TOKEN}}
+          token: ${{secrets.RELEASES_ACCESS_TOKEN}}
           generateReleaseNotes: true
           makeLatest: true
 
