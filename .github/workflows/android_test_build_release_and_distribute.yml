@@ -45,5 +45,23 @@ jobs:
 #          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
           groups: android_testers
           file: "build/app/outputs/flutter-apk/app-release.apk"
-
-
+#      - name: Install Fastlane
+#        uses: fastlane/fastlane@2.4.1
+#        with:
+#          version: '2.190.0'
+#
+#      - name: Fastlane Bundle Install
+#        run: bundle install
+#        working-directory: android
+#
+#      - name: Fastlane Build APK
+#        run: bundle exec fastlane build_apk
+#        working-directory: android
+#
+#      - name: Release to Play Store
+#        run: bundle exec fastlane release_to_playstore
+#        working-directory: android
+#
+#
+#
+#
