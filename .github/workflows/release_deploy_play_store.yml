@@ -4,7 +4,6 @@ on:
     branches:
       - main
       - test
-
   # Enable manual run
   workflow_dispatch:
     inputs:
@@ -22,47 +21,45 @@ on:
 permissions: read-all
 
 jobs:
-  fastlane-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      # Set up Flutter.
-      - name: Clone Flutter repository with master channel
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10'
-          channel: 'stable'
-      - run: flutter doctor -v
-
+fastlane-deploy:
+   runs-on: ubuntu-latest
+   steps:
+     # Set up Flutter.
+     - name: Clone Flutter repository with master channel
+     - uses: subosito/flutter-action@v2
+       with:
+         flutter-version: '3.3.10'
+         channel: 'stable'
+     - run: flutter doctor -v
       # Checkout gallery code and get packages.
-      - name: Checkout gallery code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - run: flutter pub get
-
+     - name: Checkout gallery code
+       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+     - run: flutter pub get
       # Setup Ruby, Bundler, and Gemfile dependencies
-      - name: Setup Fastlane
-        uses: ruby/setup-ruby@360dc864d5da99d54fcb8e9148c14a84b90d3e88 # v1.165.1
-        with:
-          ruby-version: "2.6"
-          bundler-cache: true
-          working-directory: android
+     - name: Setup Fastlane
+       uses: ruby/setup-ruby@360dc864d5da99d54fcb8e9148c14a84b90d3e88 # v1.165.1
+       with:
+         ruby-version: "2.6"
+         bundler-cache: true
+         working-directory: android
 
-      - name: Configure Keystore
-        run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-          echo "storeFile=upload-keystore.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-        working-directory: android
-
-      # Build and deploy with Fastlane (by default, to beta track) 🚀.
-      # Naturally, promote_to_production only deploys.
-      - run: bundle exec fastlane ${{ github.event.inputs.lane || 'beta' }}
-        env:
-          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
-        working-directory: android
+#      - name: Configure Keystore
+#        run: |
+#          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
+#          echo "storeFile=upload-keystore.jks" >> key.properties
+#          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+#          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+#          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+#        env:
+#          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+#          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+#          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+#          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+#        working-directory: android
+#
+#      # Build and deploy with Fastlane (by default, to beta track) 🚀.
+#      # Naturally, promote_to_production only deploys.
+#      - run: bundle exec fastlane ${{ github.event.inputs.lane || 'beta' }}
+#        env:
+#          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+#        working-directory: android
