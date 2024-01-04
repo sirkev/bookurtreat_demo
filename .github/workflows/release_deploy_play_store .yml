@@ -61,3 +61,45 @@ jobs:
         env:
           PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
         working-directory: android
+
+
+        setup-fastlane:
+          name: Install Fastlane
+          runs-on: ubuntu-latest
+          needs: setup-analyze-flutter
+          steps:
+            - uses: subosito/flutter-action@v2
+              with:
+                flutter-version: '3.3.10'
+                channel: 'stable'
+            - uses: ruby/setup-ruby@v1
+              with:
+                ruby-version: '3.3'
+                bundler-cache: true
+            - uses: actions/checkout@v3
+            - run: cd android && bundle install && cd ..
+            - run bundle install fastlane
+            - uses: maierj/fastlane-action@v3.0.0
+              with:
+                lane: 'beta'
+                subdirectory: 'android'
+              #      - run: cd android && fastlane release
+
+
+              #      - name: Install Fastlane
+
+              #
+              #      - name: Fastlane Bundle Install
+              #        run: bundle install
+              #        working-directory: android
+              #
+              #      - name: Fastlane Build APK
+              #        run: bundle exec fastlane build_apk
+              #        working-directory: android
+              #
+              #      - name: Release to Play Store
+              #        run: bundle exec fastlane release_to_playstore
+              #        working-directory: android
+              #
+              #
+
