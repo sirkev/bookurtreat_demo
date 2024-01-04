@@ -29,15 +29,13 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-
-#      - name: Install Fastlane
-#        run: cd android && bundle install && cd ..
-#      - name: Install packages
-#        run: flutter pub get
-#      - name: Prebuild
-#        run: flutter build appbundle
-#      - name: Execute Fastlane command
-#        run: cd android && fastlane release
+      - name: Install Fastlane
+        run: cd android && bundle install && cd ..
+      - name: Install packages
+      - name: Prebuild
+        run: flutter build appbundle
+      - name: Execute Fastlane command
+        run: cd android && fastlane release
 
 
 #      - run: flutter build apk
