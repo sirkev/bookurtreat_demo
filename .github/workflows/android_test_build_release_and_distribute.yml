@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-release-android:
+ release-android:
     name: Build and release Android app
     runs-on: ubuntu-latest
     steps:
