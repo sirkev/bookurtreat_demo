@@ -32,6 +32,8 @@ jobs:
    runs-on: ubuntu-latest
    needs: setup-analyze-flutter
    steps:
+      - uses: actions/checkout@v3
+      - run: cd android && bundle install && cd ..
       - uses: ruby/setup-ruby@v1
         with:
          ruby-version: '3.3'
@@ -40,8 +42,6 @@ jobs:
         with:
          lane: 'beta'
          subdirectory: 'android'
-      - uses: actions/checkout@v3
-      - run: cd android && bundle install && cd ..
       - run: cd android && fastlane release
 
 
