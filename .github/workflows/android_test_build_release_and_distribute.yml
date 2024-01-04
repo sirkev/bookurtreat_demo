@@ -32,12 +32,12 @@ jobs:
    runs-on: ubuntu-latest
    needs: setup-analyze-flutter
    steps:
-      - uses: actions/checkout@v3
-      - run: cd android && bundle install && cd ..
       - uses: ruby/setup-ruby@v1
         with:
          ruby-version: '3.3'
          bundler-cache: true
+      - uses: actions/checkout@v3
+      - run: cd android && bundle install && cd ..
       - uses: maierj/fastlane-action@v3.0.0
         with:
          lane: 'beta'
