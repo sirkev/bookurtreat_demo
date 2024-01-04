@@ -9,7 +9,7 @@ on:
 
 jobs:
  setup-analyze-flutter:
-    name: Build and release Android app
+    name: checkout, analyze and test flutter code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
