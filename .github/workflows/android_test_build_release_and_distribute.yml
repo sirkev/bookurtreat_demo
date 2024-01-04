@@ -27,7 +27,9 @@ jobs:
       - run: flutter test
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1.2'
+          ruby-version: '3.3'
+          bundler-cache: true
+
 #      - name: Install Fastlane
 #        run: cd android && bundle install && cd ..
 #      - name: Install packages
