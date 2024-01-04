@@ -36,13 +36,30 @@ jobs:
         with:
          ruby-version: '3.3'
          bundler-cache: true
+      -  uses: fastlane/fastlane@2.4.1
+         with:
+            version: '2.190.0'
       - uses: actions/checkout@v3
       - run: cd android && bundle install && cd ..
-#      - name: Install packages
-#      - name: Prebuild
-#      - run: flutter build appbundle
-#      - name: Execute Fastlane command
-#        run: cd android && fastlane release
+      - run: cd android && fastlane release
+
+
+        #      - name: Install Fastlane
+
+        #
+        #      - name: Fastlane Bundle Install
+        #        run: bundle install
+        #        working-directory: android
+        #
+        #      - name: Fastlane Build APK
+        #        run: bundle exec fastlane build_apk
+        #        working-directory: android
+        #
+        #      - name: Release to Play Store
+        #        run: bundle exec fastlane release_to_playstore
+        #        working-directory: android
+        #
+        #
 
 
 #      - run: flutter build apk
@@ -63,23 +80,6 @@ jobs:
 ##          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
 #          groups: android_testers
 #          file: "build/app/outputs/flutter-apk/app-release.apk"
-#      - name: Install Fastlane
-#        uses: fastlane/fastlane@2.4.1
-#        with:
-#          version: '2.190.0'
-#
-#      - name: Fastlane Bundle Install
-#        run: bundle install
-#        working-directory: android
-#
-#      - name: Fastlane Build APK
-#        run: bundle exec fastlane build_apk
-#        working-directory: android
-#
-#      - name: Release to Play Store
-#        run: bundle exec fastlane release_to_playstore
-#        working-directory: android
-#
-#
+
 #
 #
