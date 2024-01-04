@@ -75,7 +75,7 @@ platform :android do
 
   desc 'Submit a new Beta'
   lane :beta do |_options|
-    sh "flutter build appbundle -v"
+    sh "flutter build appbundle"
     gradle(task: 'clean bundleRelease')
     upload_to_play_store(
       skip_upload_metadata: true,
