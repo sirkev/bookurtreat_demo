@@ -5,17 +5,17 @@ on:
       - main
       - test
   # Enable manual run
-  workflow_dispatch:
-    inputs:
-      lane:
-        description: "Fastlane lane"
-        required: true
-        default: "beta"
-        type: choice
-        options:
-          - beta
-          - promote_to_production
-          - production
+workflow_dispatch:
+   inputs:
+     lane:
+       description: "Fastlane lane"
+       required: true
+       default: "beta"
+       type: choice
+       options:
+         - beta
+         - promote_to_production
+         - production
 
 # Declare default permissions as read only.
 permissions: read-all
