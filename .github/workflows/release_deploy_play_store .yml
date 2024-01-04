@@ -41,7 +41,6 @@ jobs:
         with:
            ruby-version: '3.3'
            bundler-cache: true
-
       - name: Configure Keystore
         run: |
           echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
