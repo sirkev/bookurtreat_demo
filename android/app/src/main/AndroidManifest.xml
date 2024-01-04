@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bookurtreat.bookurtreat_demo">
+    android:versionCode="2"
+    android:versionName="2.0"
    <application
         android:label="bookurtreat_demo"
         android:name="${applicationName}"
