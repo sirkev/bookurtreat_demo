@@ -16,7 +16,7 @@ platform :android do
     f.close
   end
 
-  def increment_version_number(bump_type: 1, version_number: 2)
+  def increment_version_number(bump_type: 1, version_number: 3)
     path = '../app/build.gradle'
     re = /versionName\s+("\d+.\d+.\d+")/
     s = File.read(path)
