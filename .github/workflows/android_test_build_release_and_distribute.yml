@@ -40,13 +40,13 @@ jobs:
          ruby-version: '3.3'
          bundler-cache: true
       - uses: actions/checkout@v3
-      - run: cd android && gem install bundler && bundle init && echo "gem 'fastlane'" >> Gemfile
-      - run: bundle install
-      - uses: maierj/fastlane-action@v3.0.0
-        with:
-         lane: 'beta'
-         subdirectory: 'android'
-      - run: cd android && fastlane release
+      - run: cd android && gem install bundler && bundle init
+      - run: bundle install &&  gem install fastlane
+#      - uses: maierj/fastlane-action@v3.0.0
+#        with:
+#         lane: 'beta'
+#         subdirectory: 'android'
+#      - run: cd android && fastlane release
 
 
         #      - name: Install Fastlane
