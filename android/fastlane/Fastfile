@@ -76,6 +76,9 @@ platform :android do
   desc 'Submit a new Beta'
   lane :beta do |_options|
     sh "flutter build appbundle"
+    get_certificates
+    get_provisioning_profile
+    build_app
     gradle(task: 'clean bundleRelease')
     upload_to_play_store(
       skip_upload_metadata: true,
