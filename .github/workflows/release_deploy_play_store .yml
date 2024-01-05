@@ -1,105 +1,105 @@
-name: Deploy to Play Store
-on:
-  push:
-    branches:
-      - main
-
-  # Enable manual run
-  workflow_dispatch:
-    inputs:
-      lane:
-        description: "Fastlane lane"
-        required: true
-        default: "beta"
-        type: choice
-        options:
-          - beta
-          - promote_to_production
-          - production
-
-# Declare default permissions as read only.
-permissions: read-all
-
-jobs:
-  setup-flutter-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      # Set up Flutter.
-      - name: Clone Flutter repository with master channel
-        uses: subosito/flutter-action@cc97e1648fff6ca5cc647fa67f47e70f7895510b
-        with:
-          channel: master
-      - run: flutter doctor -v
-
-      # Checkout gallery code and get packages.
-      - name: Checkout gallery code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - run: flutter pub get
-
-      # Setup Ruby, Bundler, and Gemfile dependencies
-      - uses: ruby/setup-ruby@v1
-        with:
-           ruby-version: '3.3'
-           bundler-cache: true
-      - name: Configure Keystore
-        run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-          echo "storeFile=upload-keystore.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-        env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-        working-directory: android
-
-      # Build and deploy with Fastlane (by default, to beta track) 🚀.
-      # Naturally, promote_to_production only deploys.
-      - run: bundle exec fastlane ${{ github.event.inputs.lane || 'beta' }}
-        env:
-          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
-        working-directory: android
-
-
-  setup-fastlane:
-      name: Install Fastlane
-      runs-on: ubuntu-latest
-      needs: setup-flutter-deploy
-      steps:
-        - uses: subosito/flutter-action@v2
-          with:
-              flutter-version: '3.3.10'
-              channel: 'stable'
-        - uses: ruby/setup-ruby@v1
-          with:
-              ruby-version: '3.3'
-              bundler-cache: true
-        - uses: actions/checkout@v3
-        - run: cd android && bundle install && cd ..
-        - run: bundle install fastlane
-        - uses: maierj/fastlane-action@v3.0.0
-          with:
-               lane: 'beta'
-               subdirectory: 'android'
-             #      - run: cd android && fastlane release
-
-
-              #      - name: Install Fastlane
-
-              #
-              #      - name: Fastlane Bundle Install
-              #        run: bundle install
-              #        working-directory: android
-              #
-              #      - name: Fastlane Build APK
-              #        run: bundle exec fastlane build_apk
-              #        working-directory: android
-              #
-              #      - name: Release to Play Store
-              #        run: bundle exec fastlane release_to_playstore
-              #        working-directory: android
-              #
-              #
-
+#name: fast lane Deploy to Play Store
+#on:
+#  push:
+#    branches:
+#      - main
+#
+#  # Enable manual run
+#  workflow_dispatch:
+#    inputs:
+#      lane:
+#        description: "Fastlane lane"
+#        required: true
+#        default: "beta"
+#        type: choice
+#        options:
+#          - beta
+#          - promote_to_production
+#          - production
+#
+## Declare default permissions as read only.
+#permissions: read-all
+#
+#jobs:
+#  setup-flutter-deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      # Set up Flutter.
+#      - name: Clone Flutter repository with master channel
+#        uses: subosito/flutter-action@cc97e1648fff6ca5cc647fa67f47e70f7895510b
+#        with:
+#          channel: master
+#      - run: flutter doctor -v
+#
+#      # Checkout gallery code and get packages.
+#      - name: Checkout gallery code
+#        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+#      - run: flutter pub get
+#
+#      # Setup Ruby, Bundler, and Gemfile dependencies
+#      - uses: ruby/setup-ruby@v1
+#        with:
+#           ruby-version: '3.3'
+#           bundler-cache: true
+#      - name: Configure Keystore
+#        run: |
+#          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
+#          echo "storeFile=upload-keystore.jks" >> key.properties
+#          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+#          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+#          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+#        env:
+#          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+#          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+#          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+#          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+#        working-directory: android
+#
+#      # Build and deploy with Fastlane (by default, to beta track) 🚀.
+#      # Naturally, promote_to_production only deploys.
+#      - run: bundle exec fastlane ${{ github.event.inputs.lane || 'beta' }}
+#        env:
+#          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+#        working-directory: android
+#
+#
+#  setup-fastlane:
+#      name: Install Fastlane
+#      runs-on: ubuntu-latest
+#      needs: setup-flutter-deploy
+#      steps:
+#        - uses: subosito/flutter-action@v2
+#          with:
+#              flutter-version: '3.3.10'
+#              channel: 'stable'
+#        - uses: ruby/setup-ruby@v1
+#          with:
+#              ruby-version: '3.3'
+#              bundler-cache: true
+#        - uses: actions/checkout@v3
+#        - run: cd android && bundle install && cd ..
+#        - run: bundle install fastlane
+#        - uses: maierj/fastlane-action@v3.0.0
+#          with:
+#               lane: 'beta'
+#               subdirectory: 'android'
+#             #      - run: cd android && fastlane release
+#
+#
+#              #      - name: Install Fastlane
+#
+#              #
+#              #      - name: Fastlane Bundle Install
+#              #        run: bundle install
+#              #        working-directory: android
+#              #
+#              #      - name: Fastlane Build APK
+#              #        run: bundle exec fastlane build_apk
+#              #        working-directory: android
+#              #
+#              #      - name: Release to Play Store
+#              #        run: bundle exec fastlane release_to_playstore
+#              #        working-directory: android
+#              #
+#              #
+#
