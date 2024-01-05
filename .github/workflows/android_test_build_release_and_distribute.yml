@@ -41,7 +41,7 @@ jobs:
          bundler-cache: true
       - uses: actions/checkout@v3
       - run: cd android && gem install bundler
-      - run: sudo bundle install
+#      - run: sudo bundle install
 #      - run: BUNDLE_GEMFILE="android/Gemfile.android" bundle install
       - run: bundle config set without 'production'
       - run: sudo gem install fastlane
