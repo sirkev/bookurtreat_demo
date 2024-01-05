@@ -41,8 +41,8 @@ jobs:
          bundler-cache: true
       - uses: actions/checkout@v3
       - run: cd android && gem install bundler
-      - run: bundle install --without production
-#      - uses: maierj/fastlane-action@v3.0.0
+      - run: BUNDLE_GEMFILE="android/Gemfile.ios" bundle install
+        #      - uses: maierj/fastlane-action@v3.0.0
 #        with:
 #         lane: 'beta'
 #         subdirectory: 'android'
