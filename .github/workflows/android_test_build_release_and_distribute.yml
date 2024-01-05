@@ -39,11 +39,9 @@ jobs:
         with:
          ruby-version: '3.3'
          bundler-cache: true
-      - run: gem install bundler
-      - run: bundle install
       - uses: actions/checkout@v3
-      - run: cd android && bundle install && cd ..
-      - run: fastlane run bundle_install
+      - run: cd android && bundle install fastlane && cd ..
+#      - run: bundle install fastlane
       - uses: maierj/fastlane-action@v3.0.0
         with:
          lane: 'beta'
@@ -79,4 +77,14 @@ jobs:
 #          generateReleaseNotes: true
 #          makeLatest: true
 #          token: ${{secrets.RELEASES_ACCESS_TOKEN}}
+#      - name: Upload artifacts to firebase app distribution
+#        uses: wzieba/Firebase-Distribution-Github-Action@v1
+#        with:
+#          appId: ${{secrets.FIREBASE_APP_ID}}
+#          token: ${{secrets.FIREBASE_TOKEN}}
+##          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+#          groups: android_testers
+#          file: "build/app/outputs/flutter-apk/app-release.apk"
 
+#
+#
