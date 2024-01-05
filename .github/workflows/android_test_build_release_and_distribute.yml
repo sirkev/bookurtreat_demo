@@ -42,10 +42,10 @@ jobs:
       - uses: actions/checkout@v3
       - run: cd android && gem install bundler
 #      - run: bundle install
-#      - uses: maierj/fastlane-action@v3.0.0
-#        with:
-#         lane: 'beta'
-#         subdirectory: 'android'
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+         lane: 'beta'
+         subdirectory: 'android'
 #      - run: cd android && fastlane release
 
 
