@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+
+
 workflow_dispatch:
    inputs:
      lane:
@@ -15,7 +17,8 @@ workflow_dispatch:
          - beta
          - promote_to_production
          - production
-
+# Declare default permissions as read only.
+permissions: read-all
 
 jobs:
  setup-analyze-flutter:
