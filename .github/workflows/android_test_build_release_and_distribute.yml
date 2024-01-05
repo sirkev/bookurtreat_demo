@@ -43,10 +43,10 @@ jobs:
       - run: cd android && gem install bundler
 #      - run: BUNDLE_GEMFILE="android/Gemfile.android" bundle install
       - run: bundle config set without 'production'
-        #      - uses: maierj/fastlane-action@v3.0.0
-#        with:
-#         lane: 'beta'
-#         subdirectory: 'android'
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+         lane: 'beta'
+         subdirectory: 'android'
 #      - run: cd android && fastlane release
 
         ##      - name: Configure Keystore
