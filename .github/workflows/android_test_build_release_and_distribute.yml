@@ -41,15 +41,27 @@ jobs:
          bundler-cache: true
       - uses: actions/checkout@v3
       - run: cd android && gem install bundler
-      - run: bundle install &&  gem install fastlane && pwd && ls -l
+      - run: bundle install --without production
 #      - uses: maierj/fastlane-action@v3.0.0
 #        with:
 #         lane: 'beta'
 #         subdirectory: 'android'
 #      - run: cd android && fastlane release
 
+        ##      - name: Configure Keystore
+        ##        run: |
+        ##          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
+        ##          echo "storeFile=upload-keystore.jks" >> key.properties
+        ##          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+        ##          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+        ##          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+        ##        env:
+        ##          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+        ##          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+        ##          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+        ##          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+        ##        working-directory: android
 
-        #      - name: Install Fastlane
 
         #
         #      - name: Fastlane Bundle Install
