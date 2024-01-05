@@ -43,7 +43,8 @@ jobs:
       - run: cd android && gem install bundler
 #      - run: BUNDLE_GEMFILE="android/Gemfile.android" bundle install
       - run: bundle config set without 'production'
-      - run: gem install fastlane
+      - run: sudo gem install fastlane
+      - run: fastlane init
       - uses: maierj/fastlane-action@v3.0.0
         with:
          lane: 'beta'
