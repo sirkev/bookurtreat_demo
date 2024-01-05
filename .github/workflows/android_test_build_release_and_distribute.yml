@@ -1,12 +1,7 @@
 name: android_build
 
 on:
-  push:
-    branches:
-      - main
-
-
-workflow_dispatch:
+ workflow_dispatch:
    inputs:
      lane:
        description: "Fastlane lane"
