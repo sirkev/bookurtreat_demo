@@ -41,7 +41,7 @@ jobs:
          bundler-cache: true
       - uses: actions/checkout@v3
       - run: cd android && bundle install
-#      - run: bundle install fastlane
+      - run: bundle update fastlane
       - uses: maierj/fastlane-action@v3.0.0
         with:
          lane: 'beta'
