@@ -87,7 +87,6 @@ platform :android do
       aab: '../build/app/outputs/bundle/release/app-release.aab'
     )
   end
-
   desc 'Deploy a new version to the Google Play'
   lane :release do |_options|
     gradle(task: 'clean bundleRelease')
