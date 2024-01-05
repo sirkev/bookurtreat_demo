@@ -20,7 +20,7 @@ permissions: read-all
 
 jobs:
  setup-analyze-flutter:
-    name: checkout, analyze and test flutter code
+    name: flutter checkout, analyze and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,7 +39,7 @@ jobs:
 
 
  setup-fastlane:
-   name: Install Fastlane
+   name:  Fastlane build and release
    runs-on: ubuntu-latest
    needs: setup-analyze-flutter
    steps:
@@ -61,7 +61,6 @@ jobs:
          bundler-cache: true
          working-directory: android
 #      - name: Configure Keystore
-#      - run bundle update fastlane
       - run: |
             echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
             echo "storeFile=upload-keystore.jks" >> key.properties
