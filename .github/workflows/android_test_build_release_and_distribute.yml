@@ -3,7 +3,7 @@ name: android_build
 on:
   push:
     branches:
-      - main
+#      - main
   workflow_dispatch:
    inputs:
      lane:
@@ -13,7 +13,7 @@ on:
        type: choice
        options:
          - beta
-         - promote_to_production
+         - staging
          - production
 # Declare default permissions as read only.
 permissions: read-all
