@@ -3,7 +3,7 @@ name: android_build
 on:
   push:
     branches:
-#      - main
+      - main
   workflow_dispatch:
    inputs:
      lane:
@@ -78,73 +78,29 @@ jobs:
          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
         working-directory: android
 
+ release-to-firebase:
+    name: release test apk to firebase dev channel
+    runs-on: ubuntu-latest
+    needs:  setup-fastlane
+    steps:
+      - run: flutter build apk
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/*"
+          tag: android.v2.0.1.${{github.run_number}}
+          allowUpdates: true
+          generateReleaseNotes: true
+          makeLatest: true
+          token: ${{secrets.RELEASES_ACCESS_TOKEN}}
+      - name: Upload artifacts to firebase app distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+#          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+          groups: android_testers
+          file: "build/app/outputs/flutter-apk/app-release.apk"
 
 
 
-
-
-
-#      - run: cd android && gem install bundler
-##      - run: sudo bundle install
-##      - run: BUNDLE_GEMFILE="android/Gemfile.android" bundle install
-#      - run: bundle config set without 'production'
-#      - run: sudo gem install fastlane
-##      - run: fastlane init
-#      - uses: maierj/fastlane-action@v3.0.0
-#        with:
-#         lane: 'beta'
-#         subdirectory: 'android'
-#      - run: cd android && fastlane release
-
-        ##      - name: Configure Keystore
-        ##        run: |
-        ##          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-        ##          echo "storeFile=upload-keystore.jks" >> key.properties
-        ##          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-        ##          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-        ##          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-        ##        env:
-        ##          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-        ##          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-        ##          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-        ##          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-        ##        working-directory: android
-
-
-        #
-        #      - name: Fastlane Bundle Install
-        #        run: bundle install
-        #        working-directory: android
-        #
-        #      - name: Fastlane Build APK
-        #        run: bundle exec fastlane build_apk
-        #        working-directory: android
-        #
-        #      - name: Release to Play Store
-        #        run: bundle exec fastlane release_to_playstore
-        #        working-directory: android
-        #
-        #
-
-
-#      - run: flutter build apk
-#      - name: Push to Releases
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: "build/app/outputs/flutter-apk/*"
-#          tag: android.v2.0.1.${{github.run_number}}
-#          allowUpdates: true
-#          generateReleaseNotes: true
-#          makeLatest: true
-#          token: ${{secrets.RELEASES_ACCESS_TOKEN}}
-#      - name: Upload artifacts to firebase app distribution
-#        uses: wzieba/Firebase-Distribution-Github-Action@v1
-#        with:
-#          appId: ${{secrets.FIREBASE_APP_ID}}
-#          token: ${{secrets.FIREBASE_TOKEN}}
-##          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-#          groups: android_testers
-#          file: "build/app/outputs/flutter-apk/app-release.apk"
-
-#
-#
