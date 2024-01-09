@@ -1,4 +1,4 @@
-name: android_build
+name: ios_build
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
 
 jobs:
   build_test_notify:
-    name: android_build_release_distribute
-    runs-on: ubuntu-latest
+    name: ios_build_release_distribute
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -27,21 +27,25 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
-      - run: flutter build apk
+      - run: | 
+           cd ios
+           pod deintegrate
+           pod repo update
+           pod install
+      - run: | 
+          flutter build ios --no-codesign
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ..Runner.app
+          cd ..
+          zip -r app.ipa Payload
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/flutter-apk/*"
-          tag: android.v2.0.1.${{github.run_number}}
+          artifacts: "build/ios/iphoneos/app.ipa*"
+          tag: ios.v1.0.${{github.run_number}}
           allowUpdates: true
           token: ${{secrets.TOKEN}}
-      - name: Upload artifacts to firebase app distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-#          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-          groups: android_testers
-          file: "build/app/outputs/flutter-apk/app-release.apk"
 
 
