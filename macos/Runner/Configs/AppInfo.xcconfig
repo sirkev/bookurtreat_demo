@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = bookurtreat_demo
+PRODUCT_NAME = bookurtreat_dev
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.bookurtreat.bookurtreatDemo
+PRODUCT_BUNDLE_IDENTIFIER = com.bookurtreat.demo.bookurtreatDev
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.bookurtreat. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.bookurtreat.demo. All rights reserved.
