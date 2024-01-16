@@ -2,8 +2,8 @@ name: android_build
 
 on:
   push:
-    branches:
-      - main
+    branches: [main,staging,development]
+
   workflow_dispatch:
    inputs:
      lane:
@@ -18,8 +18,9 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 jobs:
- setup-analyze-flutter:
-    name: flutter checkout, analyze and test
+ deployDev:
+    name: 'Deploy to dev environment'
+    if: github.event.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
