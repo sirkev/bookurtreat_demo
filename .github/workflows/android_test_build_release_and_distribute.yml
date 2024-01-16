@@ -2,7 +2,7 @@ name: android_build
 
 on:
   push:
-    branches: [main,staging,development]
+    branches: [main,staging,dev]
 
   workflow_dispatch:
    inputs:
