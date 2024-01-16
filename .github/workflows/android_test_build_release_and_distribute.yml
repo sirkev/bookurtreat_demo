@@ -51,6 +51,133 @@ jobs:
             generateReleaseNotes: true
             makeLatest: true
             token: ${{secrets.RELEASE_ACCESS_TOKEN}}
+
+
+ deployStaging:
+    name: 'Deploy to staging environment'
+    if: github.event.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+           envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+           envkey_API_URL: ${{ secrets.API_URL }}
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.7'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter build apk
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+            artifacts: "build/app/outputs/flutter-apk/*"
+            tag: android.v2.0.1.${{github.run_number}}
+            allowUpdates: true
+            generateReleaseNotes: true
+            makeLatest: true
+            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ deployProduction:
+    name: 'Deploy to production environment'
+    if: github.event.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+           envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+           envkey_API_URL: ${{ secrets.API_URL }}
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.7'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter build apk
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+            artifacts: "build/app/outputs/flutter-apk/*"
+            tag: android.v2.0.1.${{github.run_number}}
+            allowUpdates: true
+            generateReleaseNotes: true
+            makeLatest: true
+            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #      - name: Upload artifacts to firebase app distribution
 #        uses: wzieba/Firebase-Distribution-Github-Action@v1
 #        with:
