@@ -16,15 +16,13 @@ class _MapScreenState extends State<MapScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.listenerMapSingleTapping.addListener(() async {
         var position = controller.listenerMapSingleTapping.value!;
-        if (position != null) {
-          await controller.addMarker(position,
-              markerIcon: MarkerIcon(
-                icon: Icon(
-                  Icons.pin_drop,
-                  color: Colors.red,
-                ),
-              ));
-        }
+        await controller.addMarker(position,
+            markerIcon: const MarkerIcon(
+              icon: Icon(
+                Icons.pin_drop,
+                color: Colors.red,
+              ),
+            ));
       });
     });
   }
@@ -48,8 +46,8 @@ class _MapScreenState extends State<MapScreen> {
   //   ),
   // );
   final controller = MapController(
-      initMapWithUserPosition: UserTrackingOption(enableTracking: true),
-      areaLimit: BoundingBox.world());
+      initMapWithUserPosition: const UserTrackingOption(enableTracking: true),
+      areaLimit: const BoundingBox.world());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +63,14 @@ class _MapScreenState extends State<MapScreen> {
             }
           },
           onGeoPointClicked: (point) {
-            showModalBottomSheet(context: context, builder: (context){
-              return Card(color: Colors.white,child:Text('${point.longitude}') ,);
-            });
-
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Card(
+                    color: Colors.white,
+                    child: Text('${point.longitude}'),
+                  );
+                });
           },
           onLocationChanged: (point) {},
           osmOption: OSMOption(
