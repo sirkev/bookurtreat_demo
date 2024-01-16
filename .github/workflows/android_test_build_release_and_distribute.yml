@@ -50,7 +50,7 @@ jobs:
             allowUpdates: true
             generateReleaseNotes: true
             makeLatest: true
-            token: ${{secrets.TOKEN}}
+            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
       - name: Upload artifacts to firebase app distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
