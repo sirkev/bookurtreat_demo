@@ -86,37 +86,6 @@ jobs:
             generateReleaseNotes: true
             makeLatest: true
             token: ${{secrets.RELEASE_ACCESS_TOKEN}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  deployProduction:
     name: 'Deploy to production environment'
     if: github.event.ref == 'refs/heads/staging'
