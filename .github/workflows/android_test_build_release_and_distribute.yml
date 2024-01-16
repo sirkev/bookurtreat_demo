@@ -36,7 +36,6 @@ jobs:
       - run: flutter analyze
       - run: flutter test
 
-
  setup-fastlane:
    name:  Fastlane build and release
    runs-on: ubuntu-latest
