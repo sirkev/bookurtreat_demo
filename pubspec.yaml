@@ -38,6 +38,7 @@ dependencies:
   flutter_osm_plugin: ^0.70.4
   logger: ^2.0.2+1
   firebase_core: ^2.24.2
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   change_app_package_name: ^1.1.0
