@@ -35,6 +35,7 @@ jobs:
            envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
            envkey_API_URL: ${{ secrets.API_URL }}
            file_name: .env
+#           envkey_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
