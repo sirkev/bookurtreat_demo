@@ -29,28 +29,25 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-           envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
-           envkey_API_URL: ${{ secrets.API_URL }}
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.7'
           channel: 'stable'
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+           envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+           envkey_API_URL: ${{ secrets.API_URL }}
+           file_name: .env
+#           envkey_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v3
         with:
-            artifacts: "build/app/outputs/flutter-apk/*"
-            tag: android.v2.0.1.${{github.run_number}}
-            allowUpdates: true
-            generateReleaseNotes: true
-            makeLatest: true
-            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
+          name: apk-release
+          path: build/app/outputs/flutter-apk/app-release.apk
 
 
  deployStaging:
@@ -78,14 +75,10 @@ jobs:
       - run: flutter analyze
       - run: flutter build apk
       - name: Push to Releases
-        uses: ncipollo/release-action@v1
+        uses: actions/upload-artifact@v3
         with:
-            artifacts: "build/app/outputs/flutter-apk/*"
-            tag: android.v2.0.1.${{github.run_number}}
-            allowUpdates: true
-            generateReleaseNotes: true
-            makeLatest: true
-            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
+          name: apk-release
+          path: build/app/outputs/flutter-apk/app-release.apk
 
  deployProduction:
     name: 'Deploy to production environment'
@@ -111,17 +104,10 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
+      - uses: actions/upload-artifact@v3
         with:
-            artifacts: "build/app/outputs/flutter-apk/*"
-            tag: android.v2.0.1.${{github.run_number}}
-            allowUpdates: true
-            generateReleaseNotes: true
-            makeLatest: true
-            token: ${{secrets.RELEASE_ACCESS_TOKEN}}
-
-
+          name: apk-release
+          path: build/app/outputs/flutter-apk/app-release.apk
 
 
 
