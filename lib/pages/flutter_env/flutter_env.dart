@@ -15,7 +15,7 @@ class Env extends StatelessWidget {
       body: Center(
         child: Text(
           'API_URL: $apiUrl',
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
     );

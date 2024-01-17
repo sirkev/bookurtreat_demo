@@ -1,6 +1,5 @@
 import 'package:bookurtreat_dev/firebase_options.dart';
 import 'package:bookurtreat_dev/pages/flutter_env/flutter_env.dart';
-import 'package:bookurtreat_dev/pages/map_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
