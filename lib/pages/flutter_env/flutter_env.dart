@@ -14,9 +14,17 @@ class Env extends StatelessWidget {
         title: Text(title.toUpperCase()),
       ),
       body: Center(
-        child: Text(
-          'API_URL: $apiUrl',
-          style: Theme.of(context).textTheme.headlineMedium,
+        child: Column(
+          children: [
+            Text(
+              'built from : $title environment',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            Text(
+              'API url value: $apiUrl',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
         ),
       ),
     );
