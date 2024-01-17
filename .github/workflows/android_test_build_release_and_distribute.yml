@@ -4,17 +4,18 @@ on:
   push:
     branches: [main,staging,dev]
 
-  workflow_dispatch:
-   inputs:
-     lane:
-       description: "Fastlane lane"
-       required: true
-       default: "beta"
-       type: choice
-       options:
-         - beta
-         - staging
-         - production
+#  workflow_dispatch:
+#   inputs:
+#     lane:
+#       description: "Fastlane lane"
+#       required: true
+#       default: "beta"
+#       type: choice
+#       options:
+#         - beta
+#         - staging
+#         - production
+#
 # Declare default permissions as read only.
 permissions: read-all
 jobs:
@@ -40,7 +41,6 @@ jobs:
            envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
            envkey_API_URL: ${{ secrets.API_URL }}
            file_name: .env
-#           envkey_SECRET_KEY: ${{ secrets.ENV_SECRET_KEY }}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
