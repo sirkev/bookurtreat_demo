@@ -10,6 +10,7 @@ class Env extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: getColor(title),
         title: Text(title.toUpperCase()),
       ),
       body: Center(
@@ -19,5 +20,15 @@ class Env extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color getColor(String environment) {
+    if (environment.toLowerCase().trim() == 'staging') {
+      return Colors.amberAccent;
+    }
+    if (environment.toLowerCase().trim() == 'production') {
+      return Colors.green;
+    }
+    return Colors.red;
   }
 }

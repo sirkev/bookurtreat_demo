@@ -17,14 +17,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final title = dotenv.env['ENVIRONMENT'];
+    final titleText = dotenv.env['ENVIRONMENT'];
     return MaterialApp(
+      debugShowCheckedModeBanner: isDebug(titleText ?? ''),
       title: 'Open Street Maps',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Env(title: '$title'),
+      home: Env(title: '$titleText'),
     );
+  }
+
+  bool isDebug(String environment) {
+    if (environment.toLowerCase().trim() == 'staging') {
+      return true;
+    }
+    if (environment.toLowerCase().trim() == 'production') {
+      return false;
+    }
+    return true;
   }
 }
