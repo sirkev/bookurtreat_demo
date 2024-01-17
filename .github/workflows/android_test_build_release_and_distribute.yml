@@ -34,6 +34,7 @@ jobs:
         with:
            envkey_ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
            envkey_API_URL: ${{ secrets.API_URL }}
+           file_name: .env
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
