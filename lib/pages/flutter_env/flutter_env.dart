@@ -13,19 +13,19 @@ class Env extends StatelessWidget {
         backgroundColor: getColor(title),
         title: Text(title.toUpperCase()),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(
-              'built from : $title environment',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Text(
-              'API url value: $apiUrl',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            ' Built from : $title environment',
+            style: const TextStyle(fontSize: 18),
+          ),
+          Text(
+            'API url value: $apiUrl',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ],
       ),
     );
   }
